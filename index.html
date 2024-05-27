@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紫色分旦</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            /* 背景颜色 */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: purple;
+            /* 标题颜色 */
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        #fudan-logo {
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        #experiment-img {
+            width: 600px;
+            margin-top: 20px;
+        }
+
+        #start-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #start-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>紫色分旦</h1>
+        <img id="fudan-logo" src="fudan_logo.jpg" alt="复旦大学紫色校徽">
+        <img id="experiment-img" src="experiment_02.jpg" alt="分光光度计检测溶液吸光度的实验">
+        <button id="start-button">开始检测</button>
+        <script>
+            function controlLED() {
+                // 创建一个XMLHttpRequest对象
+                var xhr = new XMLHttpRequest();
+                // 定义处理服务器响应的函数
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        if (xhr.status == 200) {
+                            // 请求成功，处理服务器响应
+                            console.log("LED状态已切换");
+                        } else {
+                            // 请求失败
+                            console.log("请求失败");
+                        }
+                    }
+                };
+                // 发送HTTP GET请求到ESP32的特定路径
+                xhr.open("GET", "http://192.168.3.248/switch_btn", true);
+                xhr.send();
+            }
+        </script>
+    </div>
+</body>
+
+</html>
